@@ -161,9 +161,7 @@ class RichMarkdownEditor extends React.PureComponent<Props, State> {
   };
 
   insertImageFile = (file: window.File) => {
-    this.editor.change(change =>
-      change.call(insertImageFile, file, this.editor)
-    );
+    this.editor.change(change => change.call(insertImageFile, file, this.editor));
   };
 
   cancelEvent = (ev: SyntheticEvent<*>) => {
@@ -215,15 +213,11 @@ class RichMarkdownEditor extends React.PureComponent<Props, State> {
   };
 
   focusAtStart = () => {
-    this.editor.change(change =>
-      change.collapseToStartOf(change.value.document).focus()
-    );
+    this.editor.change(change => change.collapseToStartOf(change.value.document).focus());
   };
 
   focusAtEnd = () => {
-    this.editor.change(change =>
-      change.collapseToEndOf(change.value.document).focus()
-    );
+    this.editor.change(change => change.collapseToEndOf(change.value.document).focus());
   };
 
   renderNode = (props: SlateNodeProps) => {
@@ -246,11 +240,7 @@ class RichMarkdownEditor extends React.PureComponent<Props, State> {
     if (node.text !== "") return;
     if (editor.value.document.getBlocks().size > 1) return;
 
-    return (
-      <Placeholder>
-        {editor.props.readOnly ? "" : editor.props.placeholder}
-      </Placeholder>
-    );
+    return <Placeholder>{editor.props.readOnly ? "" : editor.props.placeholder}</Placeholder>;
   };
 
   render = () => {
@@ -287,20 +277,13 @@ class RichMarkdownEditor extends React.PureComponent<Props, State> {
       >
         <ThemeProvider theme={theme}>
           <React.Fragment>
-            {toc &&
-              this.state.editorLoaded &&
-              this.editor && <Contents editor={this.editor} />}
+            {toc && this.state.editorLoaded && this.editor && <Contents editor={this.editor} />}
             {!readOnly &&
+              this.editor && <Toolbar value={this.state.editorValue} editor={this.editor} />}
+            {/* {!readOnly &&
               this.editor && (
-                <Toolbar value={this.state.editorValue} editor={this.editor} />
-              )}
-            {!readOnly &&
-              this.editor && (
-                <BlockInsert
-                  editor={this.editor}
-                  onInsertImage={this.insertImageFile}
-                />
-              )}
+                <BlockInsert editor={this.editor} onInsertImage={this.insertImageFile} />
+              )} */}
             <StyledEditor
               innerRef={this.setEditorRef}
               plugins={this.plugins}
